@@ -4,6 +4,10 @@ import requests,json
 import smtplib
 from twilio.rest import TwilioRestClient
 import wikipedia
+import Tweets_cassandra
+from PyDictionary import PyDictionary
+
+
 
 def send_email(user, pwd, recipient, subject, body):
     print user, pwd, recipient, subject, body
@@ -56,6 +60,8 @@ def text(number,msg,ACCOUNT_SID,AUTH_TOKEN) :
         return 0
 
 kernel = aiml.Kernel()
+dictionary=PyDictionary()
+
 
 if os.path.isfile("bot_brain.brn"):
     kernel.bootstrap(brainFile = "bot_brain.brn")
@@ -83,6 +89,7 @@ while True:
         if bot_response == '' :
                 kernel.setBotPredicate("location",'')
         print bot_response
+        #return bot_response
 
 
     #Email
@@ -103,8 +110,50 @@ while True:
     elif message.strip().lower().split()[0] == "wiki":
         bot_response = wikipedia.summary("Wikipedia",sentences=2)
         print bot_response
+    elif message.strip().split()[0] == "tweet":
+        flag = None
+        tw = Tweets_cassandra.TweetAPI()
+        try:
+            flag = 0
+            tw.postTweet(" ".join(message.strip().split()[1:]))
+        except:
+            flag = 1
+        if (flag == 0 ):
+            print "Tweet successful"
+        else:
+            print "Tweet Failed"
 
-        
+    elif " ".join(message.strip().lower().split()[:2]) == "synonym of":
+        bot_response =  dictionary.synonym(" ".join(message.strip().lower().split()[2:]))
+        if(len(bot_response) >= 1 ):
+            bot_response = ", ".join(bot_response)
+        else:
+            bot_response = "Sorry i couldn't find the synonym for "," ".join(bot_response)
+        print bot_response
+
+    elif " ".join(message.strip().lower().split()[:2]) == "antonym of":        
+        bot_response =  (dictionary.antonym(" ".join(message.strip().lower().split()[2:])))
+        if(len(bot_response) >= 1 ):
+            bot_response = ", ".join(bot_response)
+        else:
+            bot_response = "Sorry i couldn't find the antonym for "," ".join(bot_response)
+        print bot_response
+
+
+    elif " ".join(message.strip().lower().split()[:2]) == "meaning of":
+        bot_response =  dictionary.meaning(" ".join(message.strip().lower().split()[2:]))
+        if len (bot_response.keys()) == 0  :
+            bot_response = "Sorry, Couldn't find the meaning "
+        else:
+            if 'Noun' in bot_response.keys():
+                print bot_response['Noun'][0]
+            else:
+                print "Not found"
+            
+
+
+
+
     #tasks
     elif message.strip().split()[0].lower() == 'tasks' :
         bot_response = ''
