@@ -6,7 +6,17 @@ from twilio.rest import TwilioRestClient
 import wikipedia
 import Tweets_cassandra
 from PyDictionary import PyDictionary
+import gmail
 
+def check_inbox(user, pwd) : 
+    g = gmail.login(user, pwd)
+    emails  = g.inbox().mail()
+    mails = []
+    for email in emails : 
+        email.fetch()
+        mails.append(email)
+    return mails
+    
 
 
 def send_email(user, pwd, recipient, subject, body):
@@ -78,19 +88,17 @@ while True:
         exit()
     elif message == "save":
         kernel.saveBrain("bot_brain.brn")
-
     #Weather
-    elif message.lower() == 'weather'  :
-        if kernel.getBotPredicate("location") == '' :
-                location = raw_input('I need your location ... : ')
-                kernel.setBotPredicate("location",location)
-        url = 'http://api.openweathermap.org/data/2.5/weather?q=' + kernel.getBotPredicate("location")  + ',USA&appid=xxxxxxxxxxxxxxxx'
-        bot_response = str(requests.get(url).json())
-        if bot_response == '' :
-                kernel.setBotPredicate("location",'')
-        print bot_response
-        #return bot_response
 
+    elif message.strip().split()[0].lower() == 'weather'  : 
+        url = 'http://api.openweathermap.org/data/2.5/weather?q=' + message.strip().split()[1].lower()  + ',USA&appid=83364ebafb88eff14f89615a7067812f' 
+        bot_response = (requests.get(url).json())        
+        ans ="The forcast for today's weather is "
+        weather_desc = bot_response['weather'][0]['description']
+
+        temp = ((float(bot_response['main']['temp']) - 273.15) * 9.0/5.0 )  + 32.0
+        bot_response = ans+ weather_desc +" with a temperature of "+str(temp)+" farenheit."
+        print bot_response
 
     #Email
     elif message.strip().split()[0].lower() == 'email' :
@@ -102,11 +110,37 @@ while True:
         bot_response = send_email(kernel.getBotPredicate("email"),kernel.getBotPredicate("pwd"), receiver, subject , body)
         #print bot_response
 
+    elif message.lower() == 'inbox' : 
+        kernel.setBotPredicate("email",'pipa09799@gmail.com')
+        kernel.setBotPredicate("pwd",'hackcu123')
+        bot_response = check_inbox(kernel.getBotPredicate("email"),kernel.getBotPredicate("pwd"))
+        #print bot_response     
+
+
+
+
     #News       
     elif message.lower() == 'news' :
         url = 'http://content.guardianapis.com/search?api-key=test'
-        bot_response = str(requests.get(url).json())
+        bot_response = (requests.get(url).json())
+        print type(bot_response),bot_response['response']['results']
+        
+        try:
+            ans =" "
+            bot_response = bot_response['response']["results"]
+            for each in bot_response:
+                ans += each["webTitle"]+"\n"+each["webUrl"]+"\n\n"
+            bot_response = ans
+        except:
+            print  "Cannot fetch news"
         print bot_response
+        
+
+
+
+
+
+
     elif message.strip().lower().split()[0] == "wiki":
         bot_response = wikipedia.summary("Wikipedia",sentences=2)
         print bot_response
