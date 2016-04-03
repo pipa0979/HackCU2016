@@ -1,0 +1,112 @@
+body{
+    background: url(http://mymaplist.com/img/parallax/back.png);
+	background-color: #444;
+    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+}
+
+
+.vertical-offset-100{
+    padding-top:150px;
+}
+
+.panel {
+	background-color: transparent;
+}
+
+.form-control{
+	background-color: transparent;
+	color: red;
+}
+
+/* Fot the typing part */
+/* code for animated blinking cursor */
+.typed-cursor{
+    position: relative;
+    top: 150px;
+    opacity: 1;
+    font-weight: 100;
+    color: yellow;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 2.5em;
+    text-shadow: #b2b200 0px 1px 0px;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    -ms-animation: blink 0.7s infinite;
+    -o-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-ms-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-o-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+#typed {
+    position: relative;
+    text-align: center;
+	color: yellow;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 2.5em;
+    text-shadow: #b2b200 0px 1px 0px;
+    top: 150px;
+}
+
+/* Midnight.js stuff*/
+.logo {
+    text-align: center;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 3.5em;
+}
+
+.midnightHeader.default {
+  background: transparent;
+  color: black;
+}
+.midnightHeader.white {
+  background: transparent;
+  color: white;
+}
+.midnightHeader.red {
+  background: transparent;
+  color: red;
+}
+.h1{
+    text-align: center;
+    font-style: 
+}
+
+.panel{
+  border:none;
+  padding:0;
+}
+.panel-heading{
+  border:0px solid #ccc;
+  padding:10px;
+  margin:0;
+}
+.panel-body{
+  border:0px solid #ccc;
+  padding:10px;
+  border-top:0;
+}
+

@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Office Bot</title>
+
+    <script src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script>
+    <script src="http://mymaplist.com/js/vendor/TweenLite.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <!-- Basscss -->
+    <link href="https://npmcdn.com/basscss@8.0.1/css/basscss.min.css" rel="stylesheet">
+    <!-- For typing-->
+    <script src="{{ url_for('static', filename='js/midnight.jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.scrollify.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/typed.js') }}"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylish-portfolio.css') }}" > 
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css') }}">
+    <!-- Custom Fonts -->
+    <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript">
+            $(document).ready(function(){
+
+                    $(document).mousemove(function(e){
+                     TweenLite.to($('body'), 
+                        .5, 
+                        { css: 
+                            {
+                                backgroundPosition: ""+ parseInt(event.pageX/8) + "px "+parseInt(event.pageY/'12')+"px, "+parseInt(event.pageX/'15')+"px "+parseInt(event.pageY/'15')+"px, "+parseInt(event.pageX/'30')+"px "+parseInt(event.pageY/'30')+"px"
+                            }
+                        });
+                    });
+
+                  // for the typed effect
+                  $("#typed").typed({
+                        stringsElement: $('#typed-strings'),
+                        typeSpeed: 28,
+                        backDelay: 500,
+                        loop: false,
+                        contentType: 'html', // or text
+                        // defaults to false for infinite loop
+                        showCursor: true,
+                        cursorChar: "|",
+                        loopCount: false,
+                        callback: function(){ foo(); },
+                        resetCallback: function() { newTyped(); }
+                    });
+
+                    $(".reset").click(function(){
+                        $("#typed").typed('reset');
+                    });
+
+                    // For the scrolling effect
+                    $.scrollify({
+                        section : "section",
+                        sectionName : "top",
+                        easing: "easeOutExpo",
+                        scrollSpeed: 1100,
+                        offset : 0,
+                        scrollbars: true,
+                        standardScrollElements: "",
+                        setHeights: true                        
+                    });
+
+                    // For the midnight.js header
+                    $('nav.navbar-fixed-bottom').midnight();
+                                 
+                });
+    </script>
+</head>
+
+<body>
+        <nav class="navbar-fixed-bottom">
+            <div class="midnightHeader default">
+              <h1 class="logo">OfficeBot</h1>
+            </div>
+        </nav>
+
+    <!-- Navigation -->
+    <a id="menu-toggle" href="#" class="btn btn-dark btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <nav id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-light btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand">
+                <a href="#top"  onclick = $("#menu-close").click(); >Start Bootstrap</a>
+            </li>
+            <li>
+                <a href="#top" onclick = $("#menu-close").click(); >Home</a>
+            </li>
+            <li>
+                <a href="#about" onclick = $("#menu-close").click(); >About</a>
+            </li>
+            <li>
+                <a href="#services" onclick = $("#menu-close").click(); >Services</a>
+            </li>
+            <li>
+                <a href="#portfolio" onclick = $("#menu-close").click(); >Portfolio</a>
+            </li>
+            <li>
+                <a href="#contact" onclick = $("#menu-close").click(); >Contact</a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Header -->
+    <br><br>
+    <section id="top" class="header" data-midnight="red">
+        <div class="wrap">
+            <div class="center">
+                <div id="typed-strings">
+                    <p>OfficeBot is your <strong>Personal Bot</strong></p>
+                    <p>It <em>works</em> for you</p>
+                    <p>Call an <em>uber</em> ... </p>
+                    <p>Pizza .. </p>
+                    <p>Send a <em>quick</em> email .. </p>
+                    <p>Weather updates.. </p>
+                    <p>OfficeBot is your <em>go-to</em> pal...</p>
+                </div>
+                <span id="typed"></span>
+            </div>
+        </div>
+        
+        <div class="row row-centered vertical-offset-100">
+            <div class="col-md-6 col-centered col-md-offset-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form accept-charset="UTF-8" role="form" action="" method="post">
+                        
+                            <div class="form-group">
+                                <input class="form-control input-lg" placeholder="Question" name="question" id="question" type="text" value="{{request.form.question}}">
+                            </div>
+                         <input class="right btn btn-lg btn-success" type="submit" value="Ask OfficeBot">
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="response">
+            <div class="panel panel-default">
+                    <div class="panel-body">
+                          {% if answer %}
+                              <h1 style="color:blue;">The answer is -  {{ answer }}!</h1>
+                            {% else %}
+                              <h1 style="color:red;">There is no answer</h1>
+                            {% endif %}              
+                    </div>
+                </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="about" data-midnight="green">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2>Stylish Portfolio is the perfect theme for your next project!</h2>
+                    <p class="lead">This theme features some wonderful photography courtesy of <a target="_blank" href="http://join.deathtothestockphoto.com/">Death to the Stock Photo</a>.</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary" data-midnight="red">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <h2>Our Services</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-cloud fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Service Name</strong>
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-compass fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Service Name</strong>
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-flask fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Service Name</strong>
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="service-item">
+                                <span class="fa-stack fa-4x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-shield fa-stack-1x text-primary"></i>
+                            </span>
+                                <h4>
+                                    <strong>Service Name</strong>
+                                </h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                                <a href="#" class="btn btn-light">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Portfolio -->
+    <section id="portfolio" class="portfolio" data-midnight="green">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h2>Our Work</h2>
+                    <hr class="small">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                               
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portfolio-item">
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.row (nested) -->
+                    <a href="#" class="btn btn-dark">View More Items</a>
+                </div>
+                <!-- /.col-lg-10 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section>
+
+    <!-- Call to Action 
+    <aside class="call-to-action bg-primary">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h3>The buttons below are impossible to resist.</h3>
+                    <a href="#" class="btn btn-lg btn-light">Click Me!</a>
+                    <a href="#" class="btn btn-lg btn-dark">Look at Me!</a>
+                </div>
+            </div>
+        </div>
+    </aside> -->
+
+    <!-- Footer -->
+    <section data-midnight="red">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Start Bootstrap</strong>
+                    </h4>
+                    <p>3481 Melrose Place<br>Beverly Hills, CA 90210</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fa fa-phone fa-fw"></i> (123) 456-7890</li>
+                        <li><i class="fa fa-envelope-o fa-fw"></i>  <a href="mailto:name@example.com">name@example.com</a>
+                        </li>
+                    </ul>
+                    <br>
+                    <ul class="list-inline">
+                        <li>
+                            <a href="#"><i class="fa fa-facebook fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-twitter fa-fw fa-3x"></i></a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-dribbble fa-fw fa-3x"></i></a>
+                        </li>
+                    </ul>
+                    <hr class="small">
+                    <p class="text-muted">Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    </script>
+
+</body>
+
+</html>
