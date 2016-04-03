@@ -15,7 +15,9 @@ body{
 
 .form-control{
 	background-color: transparent;
-	color: red;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 1.5em;
+	color: white;
 }
 
 /* Fot the typing part */
@@ -74,21 +76,48 @@ body{
 /* Midnight.js stuff*/
 .logo {
     text-align: center;
-    font-family: "Consolas", "Courier New", "Courier";
-    font-size: 3.5em;
+    font-family: 'Fredericka the Great', cursive;
+    font-size: 5em;
 }
 
+#response{
+    position: relative;
+   left:360px;
+}
+
+#row2{
+    position: relative;
+    left:100px;
+}
+
+#services {
+    min-height: 100%; clear:both; height:inherit; width:inherit;
+
+}
+
+.bg-primary{
+    background-color: #8E44AD;
+}
 .midnightHeader.default {
   background: transparent;
   color: black;
+  font-size: 2em;
+
 }
 .midnightHeader.white {
-  background: transparent;
-  color: white;
+background: transparent;
+  color: #8E44AD;
+
 }
 .midnightHeader.red {
-  background: transparent;
-  color: red;
+    background: transparent;
+    color: white;
+    font-size: 2em;
+}
+.midnightHeader.green {
+    background: transparent;
+    color: white;
+    font-size: 1.5em;
 }
 .h1{
     text-align: center;
@@ -110,3 +139,24 @@ body{
   border-top:0;
 }
 
+.qa {
+    font-size: 1.35em;
+}
+
+#footer {
+    background-color: white;
+}
+
+#row3{
+    position: relative;
+    top:220px
+}
+
+#we{
+    text-align: center;
+    font-family: 'IM Fell DW Pica', serif;
+    font-size: 3.2em;
+    color: #DF3A01;
+}
+
+/* For terminal output*/
