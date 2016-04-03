@@ -66,3 +66,24 @@ body{
     text-shadow: #b2b200 0px 1px 0px;
 
 }
+
+/* Midnight.js stuff*/
+.logo {
+    text-align: center;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 3.5em;
+}
+
+.midnightHeader.default {
+  background: transparent;
+  color: black;
+}
+.midnightHeader.white {
+  background: transparent;
+  color: white;
+}
+.midnightHeader.red {
+  background: transparent;
+  color: red;
+  font-size: 4em;
+}
