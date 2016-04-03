@@ -1,0 +1,68 @@
+body{
+    background: url(http://mymaplist.com/img/parallax/back.png);
+	background-color: #444;
+    background: url(http://mymaplist.com/img/parallax/pinlayer2.png),url(http://mymaplist.com/img/parallax/pinlayer1.png),url(http://mymaplist.com/img/parallax/back.png);    
+}
+
+
+.vertical-offset-100{
+    padding-top:150px;
+}
+
+.panel {
+	background-color: transparent;
+}
+
+.form-control{
+	background-color: transparent;
+	color: red;
+}
+
+/* Fot the typing part */
+/* code for animated blinking cursor */
+.typed-cursor{
+    opacity: 1;
+    font-weight: 100;
+    color: yellow;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 2.5em;
+    text-shadow: #b2b200 0px 1px 0px;
+    -webkit-animation: blink 0.7s infinite;
+    -moz-animation: blink 0.7s infinite;
+    -ms-animation: blink 0.7s infinite;
+    -o-animation: blink 0.7s infinite;
+    animation: blink 0.7s infinite;
+}
+@-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-webkit-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-moz-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-ms-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+@-o-keyframes blink{
+    0% { opacity:1; }
+    50% { opacity:0; }
+    100% { opacity:1; }
+}
+
+#typed {
+	color: yellow;
+    font-family: "Consolas", "Courier New", "Courier";
+    font-size: 2.5em;
+    text-shadow: #b2b200 0px 1px 0px;
+
+}
