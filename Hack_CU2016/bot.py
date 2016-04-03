@@ -3,6 +3,7 @@ import os
 import requests,json
 import smtplib
 from twilio.rest import TwilioRestClient
+import wikipedia
 
 def send_email(user, pwd, recipient, subject, body):
     print user, pwd, recipient, subject, body
@@ -99,6 +100,10 @@ while True:
         url = 'http://content.guardianapis.com/search?api-key=test'
         bot_response = str(requests.get(url).json())
         print bot_response
+    elif message.strip().lower().split()[0] == "wiki":
+        bot_response = wikipedia.summary("Wikipedia",sentences=2)
+        print bot_response
+
         
     #tasks
     elif message.strip().split()[0].lower() == 'tasks' :

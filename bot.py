@@ -69,6 +69,9 @@ else:
 
 while True:
     message = raw_input("Enter your message to the bot: ")
+    print message.strip().lower().split()[0] == 'wikipedia'
+    exit()
+
     if message == "quit":
         exit()
     elif message == "save":
@@ -102,8 +105,9 @@ while True:
         bot_response = str(requests.get(url).json())
         print bot_response
 
-    elif message.lower().split()[0] == 'wikipedia':
-        bot_response = wikipedia.summary(("Wikipedia",sentences=2)
+    elif message.strip().lower().split()[0] == 'wikipedia':
+        print "heyyy"
+        bot_response = wikipedia.summary("Wikipedia",sentences=2)
         print bot_response 
         
     #tasks
